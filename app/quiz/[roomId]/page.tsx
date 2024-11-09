@@ -1,13 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useParams, useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 import WaitingRoom from "@/components/quiz/waiting-room";
 import QuizQuestion from "@/components/quiz/quiz-question";
 import MovieSwiper from "@/components/quiz/movie-swiper";
 import ResultsScreen from "@/components/quiz/results-screen";
+import {
+  MovieCardSkeleton,
+  QuizQuestionSkeleton,
+} from "@/components/loading-skeleton";
 
 export type QuizState = "waiting" | "questions" | "swiping" | "results";
 
@@ -19,6 +23,7 @@ export default function QuizRoom() {
   const [participants, setParticipants] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [matches, setMatches] = useState<string[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -29,6 +34,14 @@ export default function QuizRoom() {
 
     return () => clearInterval(timer);
   }, [participants]);
+
+  useEffect(() => {
+    // Simulate loading state
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  }, []);
 
   const startQuiz = () => {
     setQuizState("questions");
@@ -54,28 +67,47 @@ export default function QuizRoom() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-primary/20 to-background p-4">
       <AnimatePresence mode="wait">
-        {quizState === "waiting" && (
-          <WaitingRoom
-            roomId={roomId as string}
-            participants={participants}
-            onStart={startQuiz}
-          />
-        )}
+        {isLoading ? (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            {quizState === "questions" ? (
+              <QuizQuestionSkeleton />
+            ) : (
+              <MovieCardSkeleton />
+            )}
+          </motion.div>
+        ) : (
+          <AnimatePresence mode="wait">
+            {quizState === "waiting" && (
+              <WaitingRoom
+                roomId={roomId as string}
+                participants={participants}
+                onStart={startQuiz}
+              />
+            )}
 
-        {quizState === "questions" && (
-          <QuizQuestion
-            key={`question-${currentQuestion}`}
-            questionNumber={currentQuestion}
-            onComplete={handleQuestionComplete}
-          />
-        )}
+            {quizState === "questions" && (
+              <QuizQuestion
+                key={`question-${currentQuestion}`}
+                questionNumber={currentQuestion}
+                onComplete={handleQuestionComplete}
+              />
+            )}
 
-        {quizState === "swiping" && (
-          <MovieSwiper onComplete={handleSwipingComplete} />
-        )}
+            {quizState === "swiping" && (
+              <MovieSwiper onComplete={handleSwipingComplete} />
+            )}
 
-        {quizState === "results" && (
-          <ResultsScreen matches={matches} onRestart={() => router.push("/")} />
+            {quizState === "results" && (
+              <ResultsScreen
+                matches={matches}
+                onRestart={() => router.push("/")}
+              />
+            )}
+          </AnimatePresence>
         )}
       </AnimatePresence>
     </div>

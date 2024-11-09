@@ -1,11 +1,9 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Card } from '@/components/ui/card';
-import { ThumbsUp, ThumbsDown } from 'lucide-react';
-import { MOVIE_DATA } from '@/lib/movie-data';
-import MovieCard from './movie-card';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { MOVIE_DATA } from "@/lib/movie-data";
+import MovieCard from "./movie-card";
 
 interface MovieSwiperProps {
   onComplete: (matches: string[]) => void;
@@ -13,12 +11,17 @@ interface MovieSwiperProps {
 
 export default function MovieSwiper({ onComplete }: MovieSwiperProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState<'left' | 'right' | null>(null);
+  const [direction, setDirection] = useState<"left" | "right" | null>(null);
   const [matches, setMatches] = useState<string[]>([]);
+  const [exiting, setExiting] = useState(false);
 
-  const handleSwipe = (swipeDirection: 'left' | 'right') => {
+  const handleSwipe = (swipeDirection: "left" | "right") => {
+    if (exiting) return;
+
+    setExiting(true);
     setDirection(swipeDirection);
-    if (swipeDirection === 'right') {
+
+    if (swipeDirection === "right") {
       setMatches([...matches, MOVIE_DATA[currentIndex].title]);
     }
 
@@ -29,6 +32,7 @@ export default function MovieSwiper({ onComplete }: MovieSwiperProps) {
         setCurrentIndex(currentIndex + 1);
         setDirection(null);
       }
+      setExiting(false);
     }, 300);
   };
 
@@ -36,13 +40,16 @@ export default function MovieSwiper({ onComplete }: MovieSwiperProps) {
     <div className="max-w-md mx-auto mt-20">
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold">Find Your Match</h2>
-        <p className="text-muted-foreground">Swipe right to like, left to pass</p>
+        <p className="text-muted-foreground">
+          Swipe right to like, left to pass
+        </p>
       </div>
 
       <div className="relative h-[500px]">
-        <AnimatePresence>
+        <AnimatePresence mode="wait">
           {currentIndex < MOVIE_DATA.length && (
             <MovieCard
+              key={currentIndex}
               movie={MOVIE_DATA[currentIndex]}
               direction={direction}
               onSwipe={handleSwipe}
