@@ -27,7 +27,7 @@ export default function QuizQuestion({
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold mb-2">{question.text}</h2>
           <div className="text-sm text-muted-foreground">
-            Question {questionNumber + 1} of {QUIZ_QUESTIONS.length}
+            Pregunta {questionNumber + 1} de {QUIZ_QUESTIONS.length}
           </div>
         </div>
 

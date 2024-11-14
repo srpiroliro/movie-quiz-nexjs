@@ -39,10 +39,8 @@ export default function MovieSwiper({ onComplete }: MovieSwiperProps) {
   return (
     <div className="max-w-md mx-auto mt-20">
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold">Find Your Match</h2>
-        <p className="text-muted-foreground">
-          Swipe right to like, left to pass
-        </p>
+        <h2 className="text-2xl font-bold">Troba la teva coincidència</h2>
+        <p className="text-muted-foreground">Fes lliscar cap a la dreta per donar m'agrada, a l'esquerra per passar</p>
       </div>
 
       <div className="relative h-[500px]">

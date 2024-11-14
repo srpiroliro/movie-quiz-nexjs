@@ -6,23 +6,23 @@ import { Button } from '@/components/ui/button';
 
 const questions = [
   {
-    text: 'What mood are you in?',
+    text: 'En quin estat d\'ànim estàs?',
     options: ['😊', '😢', '😎', '🤔'],
   },
   {
-    text: 'Preferred movie length?',
+    text: 'Durada preferida de la pel·lícula?',
     options: ['⚡', '⏰', '⌛', '📅'],
   },
   {
-    text: 'Watching with...?',
+    text: 'Veient amb...?',
     options: ['👤', '👥', '👨‍👩‍👧‍👦', '🎉'],
   },
   {
-    text: 'Favorite snack while watching?',
+    text: 'Snack preferit mentre mires?',
     options: ['🍿', '🍕', '🍫', '🥤'],
   },
   {
-    text: 'Preferred viewing time?',
+    text: 'Hora preferida per veure?',
     options: ['🌅', '☀️', '🌙', '🌚'],
   },
 ];
@@ -49,7 +49,7 @@ export default function QuizQuestion({
         <div className="text-center mb-6">
           <h2 className="text-2xl font-bold mb-2">{question.text}</h2>
           <div className="text-sm text-muted-foreground">
-            Question {questionNumber + 1} of {questions.length}
+            Pregunta {questionNumber + 1} de {questions.length}
           </div>
         </div>
 

@@ -46,8 +46,8 @@ export default function QuizRoom() {
   const startQuiz = () => {
     setQuizState("questions");
     toast({
-      title: "Quiz Started",
-      description: "Get ready for your questions!",
+      title: "Qüestionari començat",
+      description: "Prepara't per contestar les preguntes!",
     });
   };
 

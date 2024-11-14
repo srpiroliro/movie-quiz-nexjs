@@ -25,7 +25,7 @@ export default function WaitingRoom({
     >
       <Card className="p-6">
         <div className="text-center mb-6">
-          <h2 className="text-2xl font-bold mb-2">Quiz Room</h2>
+          <h2 className="text-2xl font-bold mb-2">Sala de Quiz</h2>
           <div className="flex items-center justify-center gap-2 text-muted-foreground">
             <Users className="w-5 h-5" />
             <span>{participants} participant(s)</span>
@@ -33,7 +33,7 @@ export default function WaitingRoom({
         </div>
 
         <div className="mb-6">
-          <p className="text-center mb-2">Share this link to invite others:</p>
+          <p className="text-center mb-2">Comparteix aquest enllaç per convidar altres:</p>
           <code className="block p-2 bg-muted rounded text-sm break-all">
             {`${window.location.origin}/quiz/${roomId}`}
           </code>
@@ -44,7 +44,7 @@ export default function WaitingRoom({
           className="w-full flex items-center justify-center gap-2"
         >
           <Play className="w-5 h-5" />
-          Start Quiz
+          Començar el qüestionari
         </Button>
       </Card>
     </motion.div>

@@ -1,22 +1,22 @@
 export const QUIZ_QUESTIONS = [
   {
-    text: 'What mood are you in?',
+    text: 'En quin estat d\'ànim estàs?',
     options: ['😊', '😢', '😎', '🤔'],
   },
   {
-    text: 'Preferred movie length?',
+    text: 'Durada preferida de la pel·lícula?',
     options: ['⚡', '⏰', '⌛', '📅'],
   },
   {
-    text: 'Watching with...?',
+    text: 'Veient amb...?',
     options: ['👤', '👥', '👨‍👩‍👧‍👦', '🎉'],
   },
   {
-    text: 'Favorite snack while watching?',
+    text: 'Snack preferit mentre mires?',
     options: ['🍿', '🍕', '🍫', '🥤'],
   },
   {
-    text: 'Preferred viewing time?',
+    text: 'Hora preferida per veure?',
     options: ['🌅', '☀️', '🌙', '🌚'],
-  },
+  }
 ];

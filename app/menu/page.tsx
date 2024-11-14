@@ -23,7 +23,7 @@ export default function MenuPage() {
       >
         <Film className="w-12 h-12 text-primary mx-auto mb-4" />
         <h1 className="text-4xl font-bold mb-2">MovieMatch</h1>
-        <p className="text-muted-foreground">Ready to find your next watch?</p>
+        <p className="text-muted-foreground">Preparat per trobar la teva propera pel·lícula?</p>
       </motion.div>
 
       <motion.div
@@ -38,7 +38,7 @@ export default function MenuPage() {
           className="w-full py-8 text-lg flex items-center gap-2"
         >
           <Play className="w-6 h-6" />
-          Start Quiz
+          Començar el qüestionari
         </Button>
       </motion.div>
     </div>

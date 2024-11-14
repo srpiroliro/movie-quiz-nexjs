@@ -33,7 +33,7 @@ export default function ResultsScreen({
         animate={{ scale: 1 }}
         className="text-3xl font-bold mb-8"
       >
-        Your Top Matches! 🎉
+        Top Matches! 🎉
       </motion.h2>
 
       <div className="space-y-4">
@@ -65,7 +65,7 @@ export default function ResultsScreen({
         onClick={onRestart}
         className="mt-8 px-6 py-3 bg-primary rounded-full text-black"
       >
-        Try Again
+        Torna a realitzar el quiz
       </motion.button>
     </motion.div>
   );
