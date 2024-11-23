@@ -20,7 +20,7 @@ export default function QuizRoom() {
   const { roomId } = useParams();
   const router = useRouter();
   const { toast } = useToast();
-  const [quizState, setQuizState] = useState<QuizState>("swiping");
+  const [quizState, setQuizState] = useState<QuizState>("waiting");
   const [participants, setParticipants] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [matches, setMatches] = useState<string[]>([]);
