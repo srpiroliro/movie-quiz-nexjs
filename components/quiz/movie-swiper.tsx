@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { MOVIE_DATA } from "@/lib/movie-data";
 import MovieCard from "./movie-card";
+import { Button } from "../ui/button";
+import { Film, ThumbsDown, ThumbsUp } from "lucide-react";
 
 interface MovieSwiperProps {
   onComplete: (matches: string[]) => void;
@@ -37,13 +39,16 @@ export default function MovieSwiper({ onComplete }: MovieSwiperProps) {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-20">
+    <div className="w-[320px] mx-auto pt-12 pb-20">
       <div className="text-center mb-6">
         <h2 className="text-2xl font-bold">Troba la teva coincidència</h2>
-        <p className="text-muted-foreground">Fes lliscar cap a la dreta per donar m'agrada, a l'esquerra per passar</p>
+        <p className="text-muted-foreground">
+          Fes lliscar cap a la dreta per donar m&apos;agrada, a l&apos;esquerra
+          per passar
+        </p>
       </div>
 
-      <div className="relative h-[500px]">
+      <div className="relative min-h-[500px]">
         <AnimatePresence mode="wait">
           {currentIndex < MOVIE_DATA.length && (
             <MovieCard
@@ -54,6 +59,57 @@ export default function MovieSwiper({ onComplete }: MovieSwiperProps) {
             />
           )}
         </AnimatePresence>
+      </div>
+
+      <div className="flex justify-center gap-4 mt-6">
+        {/* biome-ignore lint/a11y/useKeyWithMouseEvents: <explanation> */}
+        <button
+          type="button"
+          className="rounded-sm w-full flex items-center justify-center"
+          style={{
+            borderWidth: "2px",
+            borderStyle: "solid",
+            borderColor: "#be2649",
+            padding: "0.75rem 2rem",
+            transition: "all 0.2s",
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.backgroundColor = "transparent";
+            e.currentTarget.style.color = "#be2649";
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.backgroundColor = "";
+            e.currentTarget.style.color = "";
+          }}
+          onClick={() => handleSwipe("left")}
+          disabled={exiting || currentIndex >= MOVIE_DATA.length}
+        >
+          <ThumbsDown className="w-8 h-auto" />
+        </button>
+        {/* biome-ignore lint/a11y/useKeyWithMouseEvents: <explanation> */}
+        <button
+          type="button"
+          className="rounded-sm w-full flex items-center justify-center"
+          style={{
+            borderWidth: "2px",
+            borderStyle: "solid",
+            borderColor: "#22c55e",
+            padding: "0.75rem 2rem",
+            transition: "all 0.2s",
+          }}
+          onMouseOver={(e) => {
+            e.currentTarget.style.backgroundColor = "transparent";
+            e.currentTarget.style.color = "#22c55e";
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.style.backgroundColor = "";
+            e.currentTarget.style.color = "";
+          }}
+          onClick={() => handleSwipe("right")}
+          disabled={exiting || currentIndex >= MOVIE_DATA.length}
+        >
+          <ThumbsUp className="w-8 h-auto" />
+        </button>
       </div>
     </div>
   );

@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import { Card } from "@/components/ui/card";
-import { Movie } from "@/lib/movie-data";
-import { useEffect } from "react";
+import type { Movie } from "@/lib/movie-data";
+import { useCallback, useEffect } from "react";
 import { animate, useMotionValue, useTransform } from "framer-motion";
+import Image from "next/image";
 
 interface MovieCardProps {
   movie: Movie;
@@ -32,10 +33,9 @@ export default function MovieCard({
     ]
   );
 
-  const handleDragEnd = async (_, info) => {
+  const handleDragEnd = async (_: any, info: { offset: { x: number } }) => {
     if (Math.abs(info.offset.x) > 100) {
-      // Trigger haptic feedback if available
-      if (window.navigator && window.navigator.vibrate) {
+      if (window.navigator?.vibrate) {
         window.navigator.vibrate(50);
       }
 
@@ -49,13 +49,29 @@ export default function MovieCard({
     }
   };
 
+  // Add this new function
+  const animateSwipe = useCallback(
+    async (direction: "left" | "right") => {
+      const targetX = direction === "left" ? -300 : 300;
+      await animate(x, targetX, { type: "spring", duration: 0.5 });
+    },
+    [x]
+  );
+
+  // Update useEffect to watch for direction changes
+  useEffect(() => {
+    if (direction) {
+      animateSwipe(direction);
+    }
+  }, [direction, animateSwipe]);
+
   return (
     <motion.div
       style={{ x, rotate }}
       drag="x"
       dragConstraints={{ left: 0, right: 0 }}
       onDragEnd={handleDragEnd}
-      className="absolute w-full cursor-grab active:cursor-grabbing"
+      className="relative w-full cursor-grab active:cursor-grabbing"
     >
       <motion.div style={{ opacity }} className="w-full">
         <Card className="overflow-hidden relative">
@@ -63,15 +79,16 @@ export default function MovieCard({
             style={{ backgroundColor }}
             className="absolute inset-0 z-10 pointer-events-none"
           />
-          <div
-            className="h-80 bg-cover bg-center"
-            style={{ backgroundImage: `url(${movie.image})` }}
+          <Image
+            src={movie.image}
+            alt={movie.title}
+            className="h-[500px] w-auto"
+            width={3840}
+            height={5624}
           />
           <div className="p-6">
             <h3 className="text-xl font-bold mb-2">{movie.title}</h3>
-            <p className="text-muted-foreground">
-              {movie.genre} • {movie.year}
-            </p>
+            <p className="text-muted-foreground ">{movie.description}</p>
           </div>
         </Card>
       </motion.div>

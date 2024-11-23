@@ -1,22 +1,18 @@
 export const QUIZ_QUESTIONS = [
   {
-    text: 'En quin estat d\'ànim estàs?',
-    options: ['😊', '😢', '😎', '🤔'],
+    text: "Quanta estona tens?",
+    options: ["⚡", "⏰", "⌛", "📅"],
   },
   {
-    text: 'Durada preferida de la pel·lícula?',
-    options: ['⚡', '⏰', '⌛', '📅'],
+    text: "Quin format prefereixes?",
+    options: ["🎥🍿", "📺🎬", "⚽🏀", "🎙️🎧"],
   },
   {
-    text: 'Veient amb...?',
-    options: ['👤', '👥', '👨‍👩‍👧‍👦', '🎉'],
+    text: "Qui t'acompanya?",
+    options: ["👤", "👥", "👨‍👩‍👧‍👦", "🎉"],
   },
   {
-    text: 'Snack preferit mentre mires?',
-    options: ['🍿', '🍕', '🍫', '🥤'],
+    text: "Què t'agradaria mirar?",
+    options: ["🎭", "📰", "🍳", "🦸"],
   },
-  {
-    text: 'Hora preferida per veure?',
-    options: ['🌅', '☀️', '🌙', '🌚'],
-  }
 ];

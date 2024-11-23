@@ -12,6 +12,7 @@ import {
   MovieCardSkeleton,
   QuizQuestionSkeleton,
 } from "@/components/loading-skeleton";
+import { QUIZ_QUESTIONS } from "@/lib/quiz-data";
 
 export type QuizState = "waiting" | "questions" | "swiping" | "results";
 
@@ -19,7 +20,7 @@ export default function QuizRoom() {
   const { roomId } = useParams();
   const router = useRouter();
   const { toast } = useToast();
-  const [quizState, setQuizState] = useState<QuizState>("waiting");
+  const [quizState, setQuizState] = useState<QuizState>("swiping");
   const [participants, setParticipants] = useState(1);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [matches, setMatches] = useState<string[]>([]);
@@ -52,7 +53,7 @@ export default function QuizRoom() {
   };
 
   const handleQuestionComplete = () => {
-    if (currentQuestion < 4) {
+    if (currentQuestion < QUIZ_QUESTIONS.length - 1) {
       setCurrentQuestion((prev) => prev + 1);
     } else {
       setQuizState("swiping");
@@ -65,7 +66,7 @@ export default function QuizRoom() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary/20 to-background p-4">
+    <div className="min-h-[70vh]  p-4">
       <AnimatePresence mode="wait">
         {isLoading ? (
           <motion.div

@@ -16,6 +16,10 @@ export default function QuizQuestion({
 }: QuizQuestionProps) {
   const question = QUIZ_QUESTIONS[questionNumber];
 
+  if (!question) {
+    return null;
+  }
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

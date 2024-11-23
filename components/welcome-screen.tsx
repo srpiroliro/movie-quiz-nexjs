@@ -28,7 +28,7 @@ export default function WelcomeScreen() {
   }, [loading, router]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-primary/20 to-background flex items-center justify-center">
+    <div className="min-h-[70vh] flex items-center justify-center">
       <motion.div
         initial={{ opacity: 0, scale: 0.5 }}
         animate={{ opacity: 1, scale: 1 }}
@@ -41,8 +41,8 @@ export default function WelcomeScreen() {
           }}
           transition={{
             duration: 2,
-            repeat: loading ? Infinity : 0,
-            ease: 'linear',
+            repeat: loading ? Number.POSITIVE_INFINITY : 0,
+            ease: "linear",
           }}
           className="inline-block mb-4"
         >
@@ -54,7 +54,7 @@ export default function WelcomeScreen() {
           transition={{ delay: 0.3 }}
           className="text-4xl font-bold mb-2"
         >
-          MovieMatch
+          Tria i Troba
         </motion.h1>
         <motion.p
           initial={{ opacity: 0 }}
@@ -62,7 +62,7 @@ export default function WelcomeScreen() {
           transition={{ delay: 0.6 }}
           className="text-muted-foreground"
         >
-          Find your next favorite
+          Preparat per trobar la teva propera pel·lícula?
         </motion.p>
       </motion.div>
     </div>
