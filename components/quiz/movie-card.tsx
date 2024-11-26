@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import type { PanInfo } from "framer-motion";
 import { Card } from "@/components/ui/card";
 import type { Movie } from "@/lib/movie-data";
 import { useCallback, useEffect } from "react";
@@ -33,7 +34,7 @@ export default function MovieCard({
     ]
   );
 
-  const handleDragEnd = async (_: any, info: { offset: { x: number } }) => {
+  const handleDragEnd = async (_: Event, info: PanInfo) => {
     if (Math.abs(info.offset.x) > 100) {
       if (window.navigator?.vibrate) {
         window.navigator.vibrate(50);
@@ -49,7 +50,6 @@ export default function MovieCard({
     }
   };
 
-  // Add this new function
   const animateSwipe = useCallback(
     async (direction: "left" | "right") => {
       const targetX = direction === "left" ? -300 : 300;
@@ -58,7 +58,6 @@ export default function MovieCard({
     [x]
   );
 
-  // Update useEffect to watch for direction changes
   useEffect(() => {
     if (direction) {
       animateSwipe(direction);
@@ -71,24 +70,29 @@ export default function MovieCard({
       drag="x"
       dragConstraints={{ left: 0, right: 0 }}
       onDragEnd={handleDragEnd}
-      className="relative w-full cursor-grab active:cursor-grabbing"
+      className="absolute inset-0 cursor-grab active:cursor-grabbing z-10"
     >
-      <motion.div style={{ opacity }} className="w-full">
-        <Card className="overflow-hidden relative">
+      <motion.div style={{ opacity }} className="w-full h-full">
+        <Card className="w-full h-full overflow-hidden">
           <motion.div
             style={{ backgroundColor }}
-            className="absolute inset-0 z-10 pointer-events-none"
+            className="absolute inset-0 z-20 pointer-events-none"
           />
-          <Image
-            src={movie.image}
-            alt={movie.title}
-            className="h-[500px] w-auto"
-            width={3840}
-            height={5624}
-          />
-          <div className="p-6">
-            <h3 className="text-xl font-bold mb-2">{movie.title}</h3>
-            <p className="text-muted-foreground ">{movie.description}</p>
+          <div className="relative w-full h-full">
+            <Image
+              src={movie.image}
+              alt={movie.title}
+              fill
+              className="object-cover pointer-events-none"
+              sizes="(max-width: 768px) 100vw, 50vw"
+              priority
+            />
+            <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/70 to-transparent p-8 text-white pointer-events-none">
+              <h3 className="text-2xl font-bold mb-3">{movie.title}</h3>
+              <p className="text-base leading-relaxed opacity-90">
+                {movie.description}
+              </p>
+            </div>
           </div>
         </Card>
       </motion.div>
